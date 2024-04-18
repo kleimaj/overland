@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/formhelper/formhelper.min.css" />
+    <title>Overland Funding | @ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Overland.styles.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <!-- Matomo Tag Manager -->
+    <script>
+      var _mtm = window._mtm = window._mtm || [];
+      _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+      (function() {
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src='https://matomo.landers.teamdms.dev/js/container_nVtJ0JzL.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Tag Manager -->
+    <script>UST_CT = [];UST = { s: Date.now(), addTag: function(tag) { UST_CT.push(tag) } };UST.addEvent = UST.addTag;</script>
+    
+    <script src="https://uxwizz.landers.teamdms.dev/server/ust-rr.min.js?v=5.3.0" async></script>
+</head>
+<body>
+@await Html.PartialAsync("Partials/_Header")
+   
+<div class="content">
+    @RenderBody()
+</div>
+
+
+<!--<jl-javascript-logger-definitions/>-->
+<script asp-add-nonce="true" src="js/jsnlog.min.js"></script>
+<script asp-add-nonce="true" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script asp-add-nonce="true" src="/formhelper/formhelper.bundle.min.js"></script>
+
+<script type="text/javascript" asp-add-nonce="true">
+window.addEventListener("load", function () {
+    JL.setOptions( { "defaultAjaxUrl": "/Log", "serialize":function (o) { return JSON.stringify(o); }});
+        window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+            JL("onerrorLogger").fatalException({
+                "msg": "Uncaught Exception",
+                "errorMsg": errorMsg, "url": url,
+                "line number": lineNumber, "column": column,
+                "userAgent": navigator.userAgent,
+                "os": navigator.userAgentData,
+            }, errorObj);
+
+            return false;
+        }
+});
+</script>
+
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+<style asp-add-nonce="true">
+    body{
+        font-family:sans-serif;
+        font-size:16px;
+        padding-top:4px;
+        max-width: 1920px;
+        margin: 0 auto;
+        }
+        .content {
+            background-color: #EBEBEB;
+                max-height: 100vh;
+        }
+</style>
+</html>

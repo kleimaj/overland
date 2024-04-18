@@ -1,0 +1,111 @@
+﻿@page
+@model Prospifi.Views.Home.Partials._GoogleReview
+
+<div class="angry-grid-reviews">
+    <div id="item-0">
+        <p id="review-title">Here’s what some Prospifi customers had to say:</p>
+    </div>
+    <div id="item-1">
+      @await Html.PartialAsync("Partials/_LeftReview")
+    </div>
+    <div id="item-2">
+        @await Html.PartialAsync("Partials/_RightReview")
+        </div>
+</div>
+
+<style asp-add-nonce="true">
+  
+.angry-grid-reviews {
+    display: grid;
+    grid-template-rows: .25fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    height: 100%;
+    max-width: 1156px;
+    margin: 0 auto;
+    justify-items: center;
+    justify-content: center;
+    align-items: start;
+    align-content: center;
+}
+  @@media only screen and (max-width: 550px)
+     {
+     .angry-grid-reviews {
+         display: block;
+         grid-template-rows: .25fr 1fr;
+         grid-template-columns: 1fr 1fr;
+         gap: 0;
+         height: 100%;
+         max-width: 1156px;
+         margin: 0 auto;
+         justify-items: center;
+         justify-content: center;
+         align-items: start;
+         align-content: center;
+     }
+     }
+ 
+#item-0 {
+   grid-row-start: 1;
+   grid-column-start: 1;
+
+   grid-row-end: 2;
+   grid-column-end: 3;
+   
+}
+#item-1 {
+   grid-row-start: 2;
+   grid-column-start: 1;
+
+   grid-row-end: 3;
+   grid-column-end: 2;
+   
+}
+#item-2 {
+   grid-row-start: 2;
+   grid-column-start: 2;
+
+   grid-row-end: 3;
+   grid-column-end: 3;
+   
+}
+p#review-title {
+    text-align: center;
+}
+img.m {
+    float: left;
+    margin-right: 4px;
+}
+.BFHjQc {
+    margin-top: 20px;
+}
+.name-0 {
+    float: left;
+    width: 200px;
+}
+.name-1 {
+    float: left;
+    width: 160px;
+}
+p#ChZDSUhNMG9nS0VJQ0FnSUNWX0xyQVNREAE {
+    margin-top: 23px;
+    padding: 20px;
+}
+.star-1 {
+    position: relative;
+    top: 12px;
+}
+img#trustpilot {
+    max-width: 200px;
+    margin-top: 20px;
+}
+p#review-title {
+    color: #0057A5;
+    font-size: 26px;
+    font-weight: 600;
+}
+img#googlereview {
+    max-height: 26px;
+    margin-top: 12px;
+}
+</style>

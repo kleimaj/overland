@@ -1,0 +1,372 @@
+﻿<div class="main-parent">
+    <div class="p-2 p-md-4 container hero-card card d-flex flex-md-row flex-column-reverse justify-content-evenly align-items-center">
+        <div class="d-flex flex-column align-items-md-start align-items-center w-100 w-md-50 px-md-4">
+            <h1>Welcome! <nobr>Claim your</nobr> <nobr>pre-approved</nobr> offer now.</h1>
+            <h3>Check your loan options with no impact to <nobr>your credit score</nobr>.</h3>
+            <h5>
+                Enter the Pin # from your letter.
+            </h5>
+            <input id="accessCode" placeholder="PIN #" width="200">
+            <p id="noimpact">Your Pin # can be found on the letter that we recently sent you.<br/>
+                Don’t have a Pin # yet? <span class="approval-code-parent-link fw-bold" id="submit-link">Click here</span>.</p>
+            <button id="submit-apply-now" type="button"><nobr>GET STARTED</nobr></button>
+            <p>Applying does <span class="text-decoration-underline fw-bold">NOT</span> affect your <span class="fw-bold">FICO</span> score!</p>
+        </div>
+        <div>
+            <picture>
+                <source type="image/webp" srcset="images/hero.webp">
+                <img id="hero-img" alt="family" src="images/hero.png">
+            </picture>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" asp-add-nonce="true">
+window.addEventListener("load", function () {
+ $(document).ready(function(){
+             //document.getElementById("submit-button").disabled = false;
+             //$(".approval-code-parent img").css("filter","grayscale(0)");
+             document.getElementById("submit-link").disabled = false;
+             $(".approval-code-parent button").css("filter","grayscale(0)");
+             document.getElementById("submit-apply-now").disabled = false;
+             $(".approval-code-parent-link").css("filter","grayscale(0)");
+             
+         //$("#submit-button").click(submitCode);
+         $("#submit-link").click(submitNoCode);
+         $("#submit-apply-now").click(submitCode);
+            $('input').keyup(function(event) {
+                        if (event.which === 13)
+                        {
+                            event.preventDefault();
+                            submitCode();
+                        }
+                    });      
+         
+    });
+});
+function submitNoCode() {
+        document.getElementById("submit-link").disabled = true;
+            $(".approval-code-parent button").css("filter","grayscale(100%)");
+            document.getElementById("submit-apply-now").disabled = true;
+            $(".approval-code-parent-link").css("filter","grayscale(100%)");
+            fhToastr.info("Applying, please wait ...");
+            var accessCode = $('#accessCode').val().toUpperCase();
+            var referer = "teamdms";
+            
+         var myUrlAction = '@Html.Raw(Url.Action("SubmitCode", "Home", new { accessCode = "_accessCode_", referer = "_referer_" }))';
+                                        myUrlAction = myUrlAction.replace("_accessCode_", accessCode);
+                                        myUrlAction = myUrlAction.replace("_referer_", referer);
+                                        window.open(myUrlAction, "_self");
+}
+function submitCode() {
+        document.getElementById("submit-link").disabled = true;
+        $(".approval-code-parent button").css("filter","grayscale(100%)");
+        document.getElementById("submit-apply-now").disabled = true;
+        $(".approval-code-parent-link").css("filter","grayscale(100%)");
+        fhToastr.info("Applying, please wait ...");
+        var accessCode = $('#accessCode').val().toUpperCase();
+        var referer = "teamdms";
+      
+         $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("CheckCode")",
+                    data: {accessCode: accessCode},
+                    dataType: "text",
+                    success: function (msg) {
+                        var result = JSON.parse(msg);
+                        if (result == false) {
+                              /*fhToastr.error("This is an invalid access code, please enter a valid access code or call 888-874-0477");
+                               document.getElementById("submit-link").disabled = false;
+                               $(".approval-code-parent button").css("filter","grayscale(0)");
+                               document.getElementById("submit-apply-now").disabled = false;
+                               $(".approval-code-parent-link").css("filter","grayscale(0)");*/
+                               var myUrlAction = '@Html.Raw(Url.Action("SubmitCode", "Home", new { accessCode = "_accessCode_", referer = "_referer_" }))';
+                                                                   myUrlAction = myUrlAction.replace("_accessCode_", accessCode);
+                                                                   myUrlAction = myUrlAction.replace("_referer_", referer);
+                                                                   window.open(myUrlAction, "_self");
+                         }
+                        else {
+                            
+                            var myUrlAction = '@Html.Raw(Url.Action("SubmitCode", "Home", new { accessCode = "_accessCode_", referer = "_referer_" }))';
+                                    myUrlAction = myUrlAction.replace("_accessCode_", accessCode);
+                                    myUrlAction = myUrlAction.replace("_referer_", referer);
+                                    window.open(myUrlAction, "_self");
+                        }
+                        console.log(msg);
+                    },
+                    error: function (req, status, error) {
+                        console.log(msg);
+                    }
+                });	
+        
+        
+        
+        
+    }
+</script>
+
+<style asp-add-nonce="true">
+@@media only screen  and (min-width: 415px) {
+    #submit-apply-now{
+        margin-top: 0 !important;
+    }
+}
+h1 {
+    font-size: 58px;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+h3 {
+    font-size: 27px;
+    margin-bottom: 1.5rem;
+    font-family: 'Montserrat';
+    font-weight: 300;
+    }
+h5 {
+    font-size: 25px;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat';
+    font-weight: 300;
+}
+p {
+    font-size: 16px;
+    color:  black;
+    font-family: 'Montserrat';
+    font-weight: 300;
+}
+a {
+    color:  white;
+    text-decoration: none;
+}
+input {
+    font-size: 26px !important;
+        font-family: 'Montserrat';
+        font-weight: bolder;
+}
+#submit-apply-now{
+        border: none;
+        border-radius: 30px;
+        font-family: 'Montserrat';
+        font-weight: bolder;
+        
+}
+.hero-card {
+    background:  white;
+    color:  black;
+    max-width: 1352px;
+    border-radius: 10px;
+}
+#submit-apply-now{
+        font-size: 28px;
+        min-width: 242px;
+        max-width: 699px;
+        width: 55%;
+        background: #EA7F27;
+        color:  #fff;
+        font-weight: bold;
+        height: 68px;
+        
+        margin:  1.5rem 0;
+        
+    }
+    #noimpact{
+            margin-bottom: 1rem;
+    }
+
+    .approval-code-parent div {
+        margin: auto auto;
+    }
+.approval-code-parent-title {
+    font-size: 21px;
+    top: -14px;
+    padding: 10px;
+    position: relative;
+    margin: 0;
+}
+    .approval-code-parent p {
+        text-align: center;
+    }
+.approval-code-parent-link {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+input {
+    height: 68px;
+    font-size: 20px;
+    min-width: 242px;
+    max-width: 699px;
+    width: 55%;
+    border-radius: 30px;
+    border-style: solid;
+    border-color: #707070;
+    vertical-align: middle;
+    text-align: center;
+    border-width: 1px;
+    margin-bottom: 1rem;
+}
+input::placeholder {
+    font-weight: bold;
+}
+    .approval-code-parent img {
+        vertical-align: middle;
+        height: 40px;
+        width: 40px;
+        padding-left: 8px;
+        cursor: pointer;
+    }
+ .approval-code-parent button {
+     height: 50px;
+     width: 229px;
+     margin-left: 18px;
+     border-style: solid;
+     border-color: #5EB451;
+     border-width: 1px;
+     background-color: #5EB451;
+     border-radius: 25px;
+     color: white;
+     font-weight: bold;
+     font-size: 19px;
+     cursor: pointer;
+ }
+ @@media only screen and (max-width: 500px) {
+ #submit-apply-now {
+     margin-top: 7px !important;
+     margin-left: 0;
+ }
+.approval-code-parent {
+     max-height: 265px;
+ }
+  .approval-code-parent input {
+      height: 60px;
+      width: 90%;
+      border-radius: 10px;
+      border-style: solid;
+      border-color: #afafaf;
+      vertical-align: middle;
+      text-align: center;
+      border-width: 1px;
+  }
+  .approval-code-parent button {
+      height: 60px;
+      width: 90%;
+      border-style: solid;
+      border-color: #5EB451;
+      border-width: 1px;
+      background-color: #5EB451;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+  }
+ }
+ 
+ .features-grid {
+       display: flex;
+       grid-column-gap: 8px;
+       grid-row-gap: 8px;
+       background-color: #F8F8F8;
+       padding-bottom: 20px;
+       flex-direction: row;
+       flex-wrap: wrap;
+       align-content: center;
+       justify-content: center;
+   }
+    .main-parent {
+        text-align: center;
+        background-color: #6AA33E;
+        padding: 25px;
+    }
+    .main-parent img {
+       /* -webkit-box-shadow: 0 30px 40px -38px rgba(0, 0, 0, 1);
+        -moz-box-shadow:    0 30px 40px -38px rgba(0, 0, 0, 1);
+        box-shadow:         0 30px 40px -38px rgba(0, 0, 0, 1);*/
+    }
+ .main-parent div {
+     background: white;
+     text-align: center;
+     color: black;
+     font-size: 2em;
+    margin: 25px auto;
+    text-align: left;
+     
+     /*padding: 129px;*/
+     padding-top: 0;
+ }
+    .main-great {
+        font-size: 3em;
+        font-weight: bold;
+        color: #fff;
+        margin: 0;
+        margin-top: 13px;
+        padding-top: .7em;
+        background: #2B7AB9;
+    }
+ .main-subtitle {
+     margin-top: 0;
+     margin-bottom: 0;
+ }
+     .main-subhead {
+         margin: 0;
+         font-size: 0.9em;
+     }
+     .main-subhead a {
+         color: white;
+         text-decoration: none;
+     }
+      .main-great-br{
+         display: none;
+        }
+     @@media only screen  and (max-width: 500px) {
+     h1 {
+        font-size: 40px;
+        text-align: center;
+     }
+     h3 {
+        text-align: center;
+     }
+     h5 {
+        text-align: center;
+     }
+     p {
+        text-align: center;
+     }
+     #hero-img {
+         width: 100%;
+     }
+    .main-great {
+        font-size: 2.6em;
+        font-weight: bold;
+        background-color: #2B7AB9;
+        color: #fff;
+        margin: 0;
+        margin-top: 0;
+        padding-top: 0;
+    }
+      .main-subtitle {
+            margin-top: 0;
+             font-size: 0.7em;
+        }    
+        .main-subhead {
+            margin: 0;
+            font-size: 0.6em;
+        }
+    .main-great-br{
+     display: block;
+    }
+/* .main-parent div {
+    background-color: #2B7AB9;
+     text-align: center;
+     color: #fff;
+     font-size: 1.6em;
+     padding: 89px;
+     padding-top: 0;
+     padding-bottom: 130px;
+ }*/
+ 
+     
+     }
+ 
+</style>

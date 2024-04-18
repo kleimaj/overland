@@ -1,0 +1,150 @@
+﻿@{
+    var features = new List<Tuple<string, string, string>> {
+   
+        new("Rates as low as 5.99% APR*", "Submit Application", "Get started with a simple application to see your payment options."),
+        new("Funding within 24 hours ", "Your Approval", "Select the best loan terms and monthly payment for your situation."),
+        new("One easy monthly payment", "Receive Funds", "Once approved the funds can be in your account as soon as 48 hours."),
+        new("No origination or prepayment fees ", "Receive Funds", "Once approved the funds can be in your account as soon as 48 hours."),
+    };
+}
+
+
+<div class="features-grid-bg">
+    <div class="container">    
+    <div class="features-header">
+        <span class="title-white">Rely on Overland Funding for:</span>
+    </div>
+    <div class="features-grid">
+        @foreach (var feature in features.Where(feature => !string.IsNullOrEmpty(feature.Item1))) {
+            <div class="features-grid-flex">
+                <div class="features-box">
+                    <div class="features-box-grid">
+                        <span>
+                        <picture>
+                            <source type="image/webp" srcset="images/check.webp">
+                            <img alt="checkmark" src="images/check.png">
+                        </picture>
+                        </span>
+                        <p></p>
+                        <p>@feature.Item1</p>
+                    </div>
+                </div>
+            </div>
+        }
+  
+    </div>
+     </div>
+</div>
+
+<style asp-add-nonce="true">
+
+
+
+.features-header {
+    font-size: 41px;
+    text-align: center;
+    font-weight: 650;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    background-color: #183528;
+    color: white;
+    max-width: 1156px;
+    margin: auto;
+    font-family: 'Montserrat';
+    font-weight: bold;
+}
+.features-grid-bg {
+    padding-bottom: 36px;
+    background: #183528;
+}
+.features-grid {
+    display: flex;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    background: #183528;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    max-width: 1252px;
+    margin: auto;
+    align-items: center;
+}
+    .features-grid-flex {
+        display: flex;
+        /*flex: 1 0 1%;*/
+        align-items: center;
+        flex-wrap: nowrap;
+        justify-content: center;
+        flex-direction: column;
+    }
+  .features-box-grid {
+      display: flex;
+      align-items: center;
+/*      display: grid;
+      grid-template-columns: repeat(1,2fr);
+      grid-template-rows: 1fr;
+      grid-column-gap: 0;
+      grid-row-gap: 0;*/
+      justify-content: center;
+      justify-items: center;
+  }
+ .features-box-grid img {
+     margin-left: auto;
+     padding-right: 8px;
+     position: relative;
+     bottom: 10px;
+     align-content: flex-end;
+     justify-content: right;
+     display: flex;
+     height: 41px;
+ }
+.features-box {
+    margin: 0 0 5px 0;
+    padding: 10px;
+    /* background-color: rgb(255 255 255 / 10%); */
+    min-height: 100%;
+    max-width: 268px;
+}
+.features-box p {
+    margin-bottom: 0;
+    margin-top: 0;
+    text-align: left;
+    font-size: 22px;
+  font-family: 'Montserrat';
+    font-weight: 300;
+    line-height: normal;
+    color:  white;
+}
+.features-box b {
+    font-size: 22px;
+}
+  @@media (max-width: 767px) {
+  .title {
+      font-size: 25px;
+      line-height: 30px;
+      text-align: center;
+  }
+  .hideme {
+  display: none;
+  }
+.features-grid {
+    display: flex;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    /* background-color: #003046; */
+    padding-bottom: 15px;
+    /* margin-bottom: 12px; */
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    max-width: 1192px;
+    margin: auto;
+    align-items: center;
+    /* margin-bottom: 3px; */
+}
+  }
+</style>

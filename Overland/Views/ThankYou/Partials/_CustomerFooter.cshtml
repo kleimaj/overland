@@ -1,0 +1,167 @@
+﻿<div class="customer-footer">
+    <div class="customer-checkmark">
+        <p class="customer-great"></p>
+        <div class="customer-thankyou d-flex flex-md-row flex-column-reverse">
+            
+            <div>
+            <p class="customer-thankyou-title">Thank you.</p>
+            <p class="customer-thankyou-sub">An Overland Funding agent will 
+                call you shortly.</p>
+            <hr/>
+            <p class="customer-thankyou-bottom">
+                To expedite the loan application, <nobr>please call</nobr> <a href="tel:1-888-874-0477"><nobr>1-888-874-0477</nobr></a>.</p>
+            </div>
+            
+            <div class="p-4">
+                <picture>
+                                <source type="image/webp" srcset="images/thank-you.webp">
+                                <img id="hero-img" alt="family" src="images/thank-you.png">
+                            </picture>
+            </div>
+        </div>
+        
+                  
+    </div>
+</div>
+<footer class="d-flex">
+    <div class="container d-flex">    
+        <div class="col-12">
+            <p>
+                &copy; Overland Funding. All Rights Reserved.
+            </p>
+            <p>
+                <a href="https://www.overlandfunding.com/privacy-policy/">Privacy Policy</a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style asp-add-nonce="true">
+@@media only screen  and (max-width: 750px) {
+.customer-footer p {
+    text-align: center !important;
+}
+}
+a {
+    color:  black;
+    text-decoration: none;
+}
+@@media only screen  and (max-width: 600px) {
+.customer-thankyou img {
+    width: 100%;
+}
+.customer-thankyou-title {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+p {
+    text-align: center;
+}
+hr {
+    margin:  0 auto;
+}
+.customer-thankyou {
+    padding:  20px !important;
+}
+.customer-checkmark { 
+    padding: 20px;
+}
+}
+.customer-thankyou {
+    background-color: #fff;
+    padding-left: 24px;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+    /* box-shadow: 0 0 10px 0 rgba(0,0,0,.2); */
+    vertical-align: bottom;
+    position: relative;
+    /* top: -229px; */
+    /* width: 50%; */
+    justify-content: center;
+    margin: auto auto;
+    border-radius: 10px;
+    padding: 40px;
+    
+}
+.customer-great {
+    display: none;
+}
+hr {
+    width: 200px;
+    margin: 0.5rem 0;
+    margin-left: 10%;
+    text-align: center;
+}
+@@media only screen  and (min-width: 615px) {
+.customer-great {
+    font-size: 4em!important;
+    font-weight: bold!important;
+    margin-bottom: 20px!important;
+    color: #000!important;
+    text-align: center;
+    display: flow;
+}
+
+.customer-thankyou {
+    background-color: white;
+    padding-left: 24px;
+    text-align: center;
+    font-weight: bold;
+    color: #000;
+    vertical-align: bottom;
+    position: relative;
+    /* margin: 12%; */
+        top: -330px;
+    max-width: 960px;
+    justify-content: center;
+    margin: auto auto;
+}
+
+}
+.customer-checkmark {
+/*padding: 20px;*/
+    background: #6AA33E;
+}
+.customer-thankyou-title {
+    line-height: 42px;
+    padding-bottom: 10px !important;
+    font-size: 46px !important;
+    font-weight: bold !important;
+    font-family: 'Source Sans Pro', sans-serif;
+
+}
+.customer-thankyou-sub {
+    padding-top: 0 !important;
+    padding-bottom: 10px !important;
+}
+
+.customer-footer p {
+    font-size: 24px;
+    color: #000;
+    padding: 36px;
+    padding-bottom: 0;
+    margin: auto;
+    font-weight: 300;
+    text-align: left;
+}
+
+.customer-thankyou-bottom {
+padding-top: 10px !important;
+    padding-bottom: 46px!important;
+        max-width: 715px;
+    font-weight: 100;
+    font-size: 20px !important;
+}
+footer {
+    background: #F3F3F3;
+    padding:  25px;
+    text-align: center;
+    padding-top: 60px;
+  font-family: 'Montserrat';
+  color:  black;
+}
+footer a {
+    color: black;
+}
+</style>

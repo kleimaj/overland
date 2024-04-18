@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Verify Your Information";
+}
+
+    @await Html.PartialAsync("Partials/_CustomerForm")
+    @await Html.PartialAsync("Partials/_CustomerFooter")
+<style asp-add-nonce="true">
+   @@media only screen and (min-width: 929px)
+    {
+       .content {
+             background-color: #F8F8F8;
+             margin-top: 30px !important;
+         }
+   }
+  
+   .content {
+       background-color: #fff !important;
+   }
+   
+</style>

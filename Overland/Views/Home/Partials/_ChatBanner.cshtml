@@ -1,0 +1,67 @@
+﻿<div class="chat-banner-parent chat-grid">
+	
+	<div>
+		 <picture>
+            <source type="image/webp" srcset="images/chat.webp">
+            <img id="chat-phone" alt="checkmark" src="images/chat.png">
+        </picture>
+	</div>
+    
+	<div>
+        <span>
+            <a class="chat-banner-parent-a" href="tel:8009954413">Click</a> to speak to a Loan Consultant<br/>
+            and expedite your loan approval now.
+            @*<p class="chat-banner-sub"><small>Hours: M-F 7:30 a.m. to 5:00 p.m. PST</small>
+            </p>*@
+        </span>
+    </div>
+</div>
+
+<style asp-add-nonce="true">
+
+   .chat-banner-parent {
+       display: grid;
+       grid-template-columns: 1fr;
+       grid-template-rows: 1fr;
+       grid-column-gap: 0;
+       grid-row-gap: 0;
+       padding-bottom: 8px;
+       position: relative;
+       padding-top: 0px;
+       background-color: #EBEBEB;
+       top: -23px;
+   }
+ .chat-grid {
+     display: grid;
+     grid-template-rows: 1fr;
+     grid-template-columns: .18fr 1fr;
+     gap: 0;
+     height: 100%;
+     justify-items: left;
+     max-width: 341px;
+     margin: 0 auto;
+     align-content: center;
+     padding-bottom: 0;
+ }
+     .chat-banner-sub {
+         margin-top: 0;
+     
+     }
+    .chat-banner-parent img {
+        width: 39px;
+        height: 42px;
+    }
+    .chat-banner-parent-a {
+        color: #2B7AB9 !important;
+       
+    }
+    chat-banner-parent p {
+         margin: 0;
+     }
+.chat-banner-parent span {
+    text-align: left;
+    vertical-align: center;
+    width: 100%;
+    font-size: 0.95em;
+}
+</style>

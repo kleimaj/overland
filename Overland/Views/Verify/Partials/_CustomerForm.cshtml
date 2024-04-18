@@ -1,0 +1,608 @@
+﻿@{
+    var formConfig = new FormConfig(ViewContext) {
+        FormId = "CustomerForm",
+        FormTitle = "Please Verify Your Information",
+        BeforeSubmit = "CustomerFormBeforeSubmit",
+        Callback = "CustomerFormCallback"
+    };
+    var stateList = new List<SelectListItem> {
+        new() { Text = "State", Value = "State (required)" },
+        new() { Text = "Alabama", Value = "AL" },
+        new() { Text = "Alaska", Value = "AK" },
+        new() { Text = "Arizona", Value = "AZ" },
+        new() { Text = "Arkansas", Value = "AR" },
+        new() { Text = "California", Value = "CA" },
+        new() { Text = "Colorado", Value = "CO" },
+        new() { Text = "Connecticut", Value = "CT" },
+        new() { Text = "District of Columbia", Value = "DC" },
+        new() { Text = "Delaware", Value = "DE" },
+        new() { Text = "Florida", Value = "FL" },
+        new() { Text = "Georgia", Value = "GA" },
+        new() { Text = "Hawaii", Value = "HI" },
+        new() { Text = "Idaho", Value = "ID" },
+        new() { Text = "Illinois", Value = "IL" },
+        new() { Text = "Indiana", Value = "IN" },
+        new() { Text = "Iowa", Value = "IA" },
+        new() { Text = "Kansas", Value = "KS" },
+        new() { Text = "Kentucky", Value = "KY" },
+        new() { Text = "Louisiana", Value = "LA" },
+        new() { Text = "Maine", Value = "ME" },
+        new() { Text = "Maryland", Value = "MD" },
+        new() { Text = "Massachusetts", Value = "MA" },
+        new() { Text = "Michigan", Value = "MI" },
+        new() { Text = "Minnesota", Value = "MN" },
+        new() { Text = "Mississippi", Value = "MS" },
+        new() { Text = "Missouri", Value = "MO" },
+        new() { Text = "Montana", Value = "MT" },
+        new() { Text = "Nebraska", Value = "NE" },
+        new() { Text = "Nevada", Value = "NV" },
+        new() { Text = "New Hampshire", Value = "NH" },
+        new() { Text = "New Jersey", Value = "NJ" },
+        new() { Text = "New Mexico", Value = "NM" },
+        new() { Text = "New York", Value = "NY" },
+        new() { Text = "North Carolina", Value = "NC" },
+        new() { Text = "North Dakota", Value = "ND" },
+        new() { Text = "Ohio", Value = "OH" },
+        new() { Text = "Oklahoma", Value = "OK" },
+        new() { Text = "Oregon", Value = "OR" },
+        new() { Text = "Pennsylvania", Value = "PA" },
+        new() { Text = "Rhode Island", Value = "RI" },
+        new() { Text = "South Carolina", Value = "SC" },
+        new() { Text = "South Dakota", Value = "SD" },
+        new() { Text = "Tennessee", Value = "TN" },
+        new() { Text = "Texas", Value = "TX" },
+        new() { Text = "Utah", Value = "UT" },
+        new() { Text = "Vermont", Value = "VT" },
+        new() { Text = "Virginia", Value = "VA" },
+        new() { Text = "Washington", Value = "WA" },
+        new() { Text = "West Virginia", Value = "WV" },
+        new() { Text = "Wisconsin", Value = "WI" },
+        new() { Text = "Wyoming", Value = "WY" }
+    };
+    
+}
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Joonasw.AspNetCore.SecurityHeaders.TagHelpers
+@using Overland.Models.Enums
+@using Weasel.Postgresql.Views
+@model Overland.Models.Customer
+
+<div class="mobile-container">
+<div class="customer-parent">
+
+    <div class="div1">
+        @await Html.PartialAsync("Partials/_MainContent")
+        <form class="form-grid" id="@formConfig.FormId" asp-formhelper="true" asp-dataType="FormData" asp-controller="Verify" asp-action="Save" enctype="multipart/form-data" formhelper>
+            @Html.HiddenFor(x => x.Id, new { Value = ViewBag.customerGid })
+            @Html.HiddenFor(x => x.AccessCode, new { Value = ViewBag.AccessCode })
+            <div class="angry-grid">
+                <div id="item-1" class="form-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" type="text" class="form-control" placeholder="First Name">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div id="item-2" class="form-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" type="text" class="form-control" placeholder="Last Name">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div id="item-0" class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" type="text" class="form-control" placeholder="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div id="item-3" class="form-group">
+                    <label asp-for="Phone"></label>
+                    <input asp-for="Phone" type="text" class="form-control" placeholder="Phone">
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div id="item-4" class="form-group">
+                    <label asp-for="PhoneType"></label>
+                    <select asp-for="PhoneType" asp-items="Html.GetEnumSelectList<PhoneType>()" class="form-control form-select loanType">
+                    </select>
+                    <span asp-validation-for="PhoneType" class="text-danger"></span>
+                </div>
+                <div id="item-5" class="form-group">
+                    <label asp-for="Address"></label>
+                    <input asp-for="Address" type="text" class="form-control" placeholder="Address">
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div id="item-6" class="form-group">
+                    <label asp-for="City"></label>
+                    <input asp-for="City" type="text" class="form-control" placeholder="City">
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+                <div id="item-7" class="form-group">
+                    <label asp-for="State"></label>
+                    <select asp-for="State" asp-items="stateList" type="text" class="form-control state form-select" placeholder="State"></select>
+                    <span asp-validation-for="State" class="text-danger"></span>
+                </div>
+                <div id="item-8" class="form-group">
+                    <label asp-for="Zip"></label>
+                    <input asp-for="Zip" type="text" class="form-control" placeholder="Zip Code">
+                    <span asp-validation-for="Zip" class="text-danger"></span>
+                </div>
+                  <!-- <div id="item-9" class="form-group">
+                                  <label asp-for="MonthlyIncome"></label>
+                                  <input asp-for="MonthlyIncome" type="text" class="form-control"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" value="" data-type="currency" placeholder="Monthly Income">
+                                  <span asp-validation-for="MonthlyIncome" class="text-danger"></span>
+                              </div>-->
+                  @*<div id="item-10" class="form-group">
+                      <label asp-for="OfferAmount"></label>
+                      <input asp-for="OfferAmount" type="text" class="form-control"  pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency" placeholder="Loan Amount (optional)">
+                      <span asp-validation-for="OfferAmount" class="text-danger"></span>
+                  </div>*@
+
+            </div>
+            <div class="submit-area mt-md-4">
+<div class="submit-area-btn-center">
+                <button type="submit" id="submit-verify" class="btn-submit-form">Verify</button>
+                <br/><br/>
+                <p class="call"><b>Questions?</b> <a href="tel:1-888-874-0477"><nobr>Call 1-888-874-0477.</nobr></a></p>
+</div>
+                <p class="disclosure">By providing my contact information and clicking on the “Verify” button above, I acknowledge, agree and provide express written consent to share my information with Overland Funding, its affiliates, partners and authorized third parties to deliver calls or text messages to me, including for marketing purposes regarding debt consolidation services, using an automatic telephone dialing system or an artificial or 
+                   pre-recorded voice to the phone number I have provided, even if it is currently listed on any federal, state, local, internal or corporate 
+                   Do-Not-Call (“DNC”) List.
+                <br/>I understand that I do not have to consent to receive these types of calls or text messages as a condition of purchasing any goods or services. Instead, I may call <nobr><a href="tel:+1-888-874-0477">1-888-874-0477</a></nobr> to continue my inquiry.
+            </div>
+        </form>
+    </div>
+    
+</div>
+</div>
+
+<script type="text/javascript" asp-add-nonce="true">
+
+    var CustomerFormBeforeSubmit = function (rr, $form, options) {
+        document.getElementById("submit-verify").disabled = true;
+        $(".btn-submit-form").css("filter","grayscale(100%)");
+        document.getElementById("submit-verify").innerHTML = "Verifying...";
+      
+    };
+    var CustomerFormCallback = function (response, statusText, xhr, $form) {
+        document.getElementById("submit-verify").disabled = false;
+        $(".btn-submit-form").css("filter","grayscale(0)");
+        document.getElementById("submit-verify").innerHTML = "Verify";
+ };
+window.addEventListener("load", function () {
+
+    $(document).ready(function(){
+       var stateId = parseInt(@ViewBag.StateId);
+       $(".state").addClass("text-light")
+       const $form = $('#CustomerForm');
+                                           
+       $form.attr('formhelper')
+       $form.attr('dataType', 'FormData');
+       $form.attr('CheckTheFormFieldsMessage', 'Check the form fields.');
+       $form.attr('redirectDelay', '0');
+       $form.attr('beforeSubmit', 'CustomerFormBeforeSubmit');
+       $form.attr('callback', 'CustomerFormCallback');
+       $form.attr('enableButtonAfterSuccess', 'False');
+       $form.attr('resetFormAfterSuccess', 'True');
+       $form.attr('toastrPositionClass', 'formhelper-toast-top-right');
+
+       if(stateId != -1) {
+                 $('.state option')[stateId].selected = true;
+            }
+       
+        $(".state").change(function(){ 
+            $("option[value='State (required)']").remove();   
+            $(".state").removeClass("text-light");
+        });    
+   /*     $("input[name='Phone']").keyup(function() {
+            $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d+)$/, "($1)$2-$3"));
+        });
+        $("input[name='Cell']").keyup(function() {
+            $(this).val($(this).val().replace(/^(\d{3})(\d{3})(\d+)$/, "($1)$2-$3"));
+        });
+        
+         $("input[data-type='currency']").on({
+                    keyup: function() {
+                      formatCurrency($(this));
+                    },
+                    blur: function() { 
+                      formatCurrency($(this), "blur");
+                    }
+                });
+        */         
+               
+    });
+});
+function formatNumber(n) {
+     return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+ }
+   
+function formatCurrency(input, blur) {
+    let input_val = input.val();
+    if (input_val === "") { return; }
+    const original_len = input_val.length;
+    let caret_pos = input.prop("selectionStart");
+    if (input_val.indexOf(".") >= 0) {
+      const decimal_pos = input_val.indexOf(".");
+      let left_side = input_val.substring(0, decimal_pos);
+      let right_side = input_val.substring(decimal_pos);
+      left_side = formatNumber(left_side);
+      right_side = formatNumber(right_side);
+      
+      if (blur === "blur") {
+        right_side += "00";
+      }
+      right_side = right_side.substring(0, 2);
+      input_val = "$" + left_side + "." + right_side;
+  
+    } else {
+      input_val = formatNumber(input_val);
+      input_val = "$" + input_val;
+      if (blur === "blur") {
+        input_val += ".00";
+      }
+    }
+    input.val(input_val);
+    const updated_len = input_val.length;
+    caret_pos = updated_len - original_len + caret_pos;
+    input[0].setSelectionRange(caret_pos, caret_pos);
+  }
+      
+</script>
+<style asp-add-nonce="true">
+
+    input, select {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      color: #797575 !important;
+      height: 38px !important;
+    } 
+    .mobile-container {
+        background: #6AA33E;
+        padding: 20px;
+    }
+    .customer-parent {
+    border-radius: 8px;
+        /*border:  20px solid #6AA33E;*/
+        background: white;
+        display: flex;
+        flex-flow: column;
+        grid-column-gap: 0;
+        grid-row-gap: 0;
+        justify-content: center;
+    }
+   .customer-group-title {
+       text-align: center;
+       font-size: 22px;
+       padding-bottom: 14px;
+   }
+   .customer-group {
+       display: flex;
+       grid-template-columns: 1fr;
+       grid-template-rows: repeat(3,1fr);
+       grid-column-gap: 0;
+       grid-row-gap: 0;
+       flex-direction: column;
+       text-align: center;
+   }
+   .customer-group strong{
+        font-size: 16px;
+   }
+  .angry-grid {
+      flex-grow: 2;
+      flex-shrink: 2;
+      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      row-gap:0;
+  }
+    .div2 { }
+    
+.disclosure {
+    text-align: center;
+}
+    .form-control {
+        width: 100%;
+        height: 50px !important;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529 !important;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.5rem;
+    }
+    .form-control::placeholder {
+        color:  black;
+    }
+      .text-light {
+            color: #000000 !important;
+        }
+        select {
+        color:  #000000;
+        }
+    .form-group label {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+    .btn-submit-form {
+        font-weight: 600;
+        border-style: solid;
+        border-color:#EA7F27;
+        border-width: 1px;
+        background-color:#EA7F27;
+        text-transform: uppercase;
+        color: white;
+        font-family: 'Montserrat';
+        font-weight: bold;
+        font-size: 22px;
+        border-radius: 50px;
+        padding: 6px 50px;
+    }
+
+ .submit-area-btn-center {
+    text-align: center;
+ }
+    .form-grid > div {
+      flex: 51%; 
+    }
+    .submit-area {
+        text-align: left;
+        /*margin-top: 18px;*/
+    }
+     .submit-area a{
+         color: black;
+         text-decoration: none;
+        }
+.submit-area p {
+    font-size: 12px;
+    font-family: 'Montserrat';
+    font-weight: 400;
+}
+  .text-danger {
+      color: #f00;
+      font-size: 12px;
+      display: block;
+      height: 17px;
+  }
+    .fast_approvals {
+        font-size: 12px;
+    }
+.form-grid {
+    display: flex;
+    flex-wrap: wrap;
+    /* max-width: 53%; */
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+    /* top: -316px; */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 14px;
+    /* padding-top: 224px; */
+    padding-bottom: 0;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+
+
+  @@media only screen and (min-width: 856px){
+.angry-grid {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    height: 100%;
+    column-gap: 16px;
+    max-width: 100%;
+    position: relative;
+}
+.submit-area {
+    text-align: left;
+    margin-top: 18px;
+    position: relative;
+    /* top: -68px; */
+    left: 4px;
+}
+.disclosure {
+    text-align: left;
+}
+}
+
+    .call {
+        font-size:  24px !important;
+        font-family: 'Montserrat';
+        margin-bottom: 20px;
+    }
+     @@media only screen and (min-width: 1450px)
+        {
+        .form-grid {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 53%;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: -316px;
+             left: -23px; 
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 204px;
+            padding-top: 224px;
+            padding-bottom: 0;
+            z-index: 1;
+        }
+        }
+    @@media only screen and (min-width: 932px)
+    {
+    .form-grid {
+         display: flex;
+         flex-wrap: wrap;
+         max-width: 75%;
+         justify-content: center;
+         align-items: center;
+         position: relative;
+         top: -316px;
+       
+         margin: 0 auto;
+         background-color: #fff;
+         padding: 204px;
+         padding-top: 224px;
+         padding-bottom: 0px;
+         z-index: 1;
+     }
+     .div1 {
+         background-color: #6AA33E;
+         /*max-height: inherit;*/
+         max-height: 1065px;
+     }
+   .submit-area {
+       text-align: left;
+       margin-top: 0;
+       position: relative;
+       top: -75px;
+       left: 4px;
+   }
+    
+ .angry-grid {
+     display: grid;
+     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+     grid-template-columns: 1fr 1fr;
+     gap: 0;
+     height: 100%;
+     column-gap: 16px;
+     max-width: 100%;
+     top: -60px;
+     position: relative;
+ }
+    #item-0 {
+       grid-row-start: 2;
+       grid-column-start: 1;
+    
+       grid-row-end: 3;
+       grid-column-end: 3;
+       
+    }
+          #item-10 {
+               grid-row-start: 6;
+               grid-column-start: 1;
+            
+               grid-row-end: 6;
+               grid-column-end: 3;
+               
+            }
+    #item-1 {
+       grid-row-start: 1;
+       grid-column-start: 1;
+    
+       grid-row-end: 2;
+       grid-column-end: 2;
+       
+    }
+    #item-2 {
+       grid-row-start: 1;
+       grid-column-start: 2;
+    
+       grid-row-end: 2;
+       grid-column-end: 3;
+       
+    }
+    #item-3 {
+       grid-row-start: 3;
+       grid-column-start: 1;
+    
+       grid-row-end: 4;
+       grid-column-end: 2;
+       
+    }
+    #item-4 {
+       grid-row-start: 3;
+       grid-column-start: 2;
+    
+       grid-row-end: 4;
+       grid-column-end: 3;
+       
+    }
+    #item-5 {
+       grid-row-start: 4;
+       grid-column-start: 1;
+    
+       grid-row-end: 5;
+       grid-column-end: 2;
+       
+    }
+    #item-6 {
+       grid-row-start: 4;
+       grid-column-start: 2;
+    
+       grid-row-end: 5;
+       grid-column-end: 3;
+       
+    }
+    #item-7 {
+       grid-row-start: 5;
+       grid-column-start: 1;
+    
+       grid-row-end: 6;
+       grid-column-end: 2;
+       
+    }
+    #item-8 {
+       grid-row-start: 5;
+       grid-column-start: 2;
+    
+       grid-row-end: 6;
+       grid-column-end: 3;
+       
+    }
+    .div2 {
+        display: block;
+        position: relative;
+        top: -90px;
+    }
+    .div1 {
+         
+        }
+     .customer-parent {
+            display: flex;
+            flex-flow: row;
+            grid-column-gap: 0;
+            grid-row-gap: 0;
+            justify-content: center;
+        }
+         .customer-group-title {
+               max-width: 255px;
+               text-align: center;
+               font-size: 22px;
+               padding-bottom: 14px;
+           }
+           .customer-group {
+               display: flex;
+               grid-template-columns: 1fr;
+               grid-template-rows: repeat(3,1fr);
+               grid-column-gap: 0;
+               grid-row-gap: 0;
+               flex-direction: column;
+               text-align: center;
+               max-width: 250px;
+           }
+           footer {
+               background-color: #707070;
+               color: #fff;
+               text-align: center;
+               padding: 10px;
+               position: relative;
+               top: -104px !important;
+           }
+ }
+    
+    
+    
+    
+    
+</style>
